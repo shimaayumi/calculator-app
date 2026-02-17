@@ -1,6 +1,6 @@
 # 🧮 Calculator App
 
-![App Screenshot](https://github.com/shimaayumi/calculator-app/raw/main/screenshot.png)
+![App Screenshot](https://github.com/shimaayumi/calculator-app/raw/main/assets/screenshot.png)
 
 シンプルでおしゃれな電卓アプリです。
 
