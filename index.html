@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>Calculator</title>
+
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #fdfdfd,);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .calculator {
+    background:  #ddc2c2;;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(228, 198, 198, 0.5);
+    width: 300px;
+  }
+
+  #display {
+    width: 93%;
+    height: 60px;
+    font-size: 28px;
+    text-align: right;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 12px;
+    padding: 10px;
+    background: #b38787;
+    color: rgb(74, 40, 40);
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  button {
+    height: 60px;
+    font-size: 20px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #b38787;
+    color: white;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background: #9f6060;
+    transform: scale(1.05);
+  }
+
+  .operator {
+    background: #b38787;
+  }
+
+  .operator:hover {
+    background: #b38787;
+  }
+
+  .equal {
+    background: #b38787;
+  }
+
+  .equal:hover {
+    background: #b38787;
+  }
+
+  .clear {
+    background:#b38787;
+  }
+
+  .clear:hover {
+    background: #b38787;
+  }
+
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+  <input type="text" id="display" readonly />
+
+  <div class="buttons">
+    <button class="clear" onclick="clearDisplay()">C</button>
+    <button onclick="append('%')">%</button>
+    <button onclick="toggleSign()">±</button>
+    <button class="operator" onclick="append('/')">÷</button>
+
+    <button onclick="append('7')">7</button>
+    <button onclick="append('8')">8</button>
+    <button onclick="append('9')">9</button>
+    <button class="operator" onclick="append('*')">×</button>
+
+    <button onclick="append('4')">4</button>
+    <button onclick="append('5')">5</button>
+    <button onclick="append('6')">6</button>
+    <button class="operator" onclick="append('-')">−</button>
+
+    <button onclick="append('1')">1</button>
+    <button onclick="append('2')">2</button>
+    <button onclick="append('3')">3</button>
+    <button class="operator" onclick="append('+')">+</button>
+
+    <button style="grid-column: span 2; border-radius: 40px;" onclick="append('0')">0</button>
+    <button onclick="append('.')">.</button>
+    <button class="equal" onclick="calculate()">=</button>
+  </div>
+</div>
+
+<script>
+const display = document.getElementById("display");
+
+function append(value) {
+  display.value += value;
+}
+
+function clearDisplay() {
+  display.value = "";
+}
+
+function calculate() {
+  let expression = display.value;
+
+  if (!/^[0-9+\-*/.%() ]+$/.test(expression)) {
+    alert("無効な入力です");
+    return;
+  }
+
+  try {
+    expression = expression.replace(/(\d+(?:\.\d+)?)%/g, "($1/100)");
+    const result = new Function("return " + expression)();
+    display.value = result;
+  } catch {
+    display.value = "Error";
+  }
+}
+
+function toggleSign() {
+  if (display.value) {
+    const result = parseFloat(display.value) * -1;
+    display.value = result;
+  }
+}
+</script>
+
+</body>
+</html>
